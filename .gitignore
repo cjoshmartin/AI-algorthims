@@ -1,2 +1,4 @@
 *.rsls
 node_modules/*
+
+\.idea/
