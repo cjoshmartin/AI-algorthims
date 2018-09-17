@@ -1,2 +1,6 @@
 *.rsls
 node_modules/*
+
+\.idea/
+
+utils/__pycache__/
