@@ -7,7 +7,7 @@ def depth_limited_search_r(problem, goal, limit):
 
     elif problem.depth == limit:
         return 'cutoff'
-    else:
+    elif problem.children is not None:
         cutoff_occurred = False
         for child in problem.children:
             result = depth_limited_search_r(child, goal, limit)
@@ -20,10 +20,9 @@ def depth_limited_search_r(problem, goal, limit):
 
 
 def depth_limited_search(head, goal, limit):
-    depth = 0
     return depth_limited_search_r(head, goal, limit)
 
 
 tree = letterTree()
 
-print('{}'.format(depth_limited_search(tree, '4', 2)))
+print('{}'.format(depth_limited_search(tree, '4', 4)))

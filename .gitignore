@@ -4,3 +4,7 @@ node_modules/*
 \.idea/
 
 utils/__pycache__/
+
+chapters/ch3-searching/__pycache__/
+
+*.rslsc
