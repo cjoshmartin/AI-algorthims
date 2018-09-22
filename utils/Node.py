@@ -2,9 +2,10 @@ infinity = float('inf')
 
 
 class Node:
-    def __init__(self, value, children = None):
+    def __init__(self, value, children = None, depth=None):
         self.value = value
         self.children = children
+        self.depth = depth
 
     def total(self, has_seen=set()):
 
@@ -21,14 +22,15 @@ class Node:
 
         return curr_total
 
-    def add_child(self, child):
+    def add_child(self, child, depth= None):
         if self.children is None:
             self.children = [child]
+            self.depth =depth
         else:
             self.children.append(child)
 
     def add_child_by_value(self, value):
-        self.children.append(Node(value))
+        self.children.add_child(Node(value))
 
     def add_children(self, list_of_children):
         for child in list_of_children:
@@ -38,20 +40,20 @@ class Node:
         return self.children is None
 
 
-def create_leafs(input_list):
+def create_leafs(input_list, depth = None):
     output_list = []
 
     for num in input_list:
-        output_list.append(Node(num))
+        output_list.append(Node(num, None, depth))
 
     return output_list
 
 
 def letterTree():
-    a1 = Node('B', create_leafs(['C', 'D', 'E']))
-    a2 = Node('F', create_leafs(['G', 'H', 'I']))
-    a3 = Node('J', create_leafs(['K', 'L', 'M']))
-    parent = Node('A', [a1, a2, a3])
+    a1 = Node('B', create_leafs(['C', 'D', 'E'], 3), 2)
+    a2 = Node('F', create_leafs(['G', 'H', 'I'], 3), 2)
+    a3 = Node('J', create_leafs(['K', 'L', 'M'], 3), 2)
+    parent = Node('A', [a1, a2, a3], 1)
     return parent
 
 
