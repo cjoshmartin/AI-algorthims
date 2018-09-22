@@ -5,34 +5,32 @@ from utils.Node import letterTree, letterGraph
 
 def breath_first_search(goal, node):
     path_queue = Queue()
+    has_seen = set()
+
     path_queue.put(node)
-    return bfs_r(goal, node, path_queue, set())
+    while not path_queue.empty():
+        next_node =path_queue.get()
 
+        if next_node.value == goal:
+            return True
 
-def bfs_r(goal, node, path_queue, has_seen):
-    print(node.value)
-    if node.value not in has_seen:
-        has_seen.add(node.value)
+        if next_node.value in has_seen:
+            continue
 
-    if goal == node.value:
-        return path_queue
+        has_seen.add(next_node.value)
+        print(next_node.value)
+        if next_node.children is None:
+            continue
 
-    next_node = path_queue.get()
-    if not next_node.is_leaf():
         for child_node in next_node.children:
-            if child_node.value not in has_seen:
-                has_seen.add(child_node.value)
-                path_queue.put(child_node)
+            path_queue.put(child_node)
 
-    if not path_queue.empty():
-        bfs_r(goal, next_node, path_queue, has_seen)
+    return False
 
-    return None
 
-print('Tree:: ')
-breath_first_search('G', letterTree())
 
-print('Graph:: ')
+print('Tree:: {}'.format(breath_first_search('G', letterTree())))
+
 graph = letterGraph()
-tacos= breath_first_search('F', graph)
-tacos
+print('Graph:: {}'.format(breath_first_search('K', graph)))
+
