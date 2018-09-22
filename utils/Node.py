@@ -32,6 +32,12 @@ def create_leafs(input_list):
 
     return output_list
 
+def letterTree():
+    a1 = Node('B', create_leafs(['C','D','E']))
+    a2 = Node('F', create_leafs(['G', 'H', 'I']))
+    a3 = Node('J', create_leafs(['K', 'L', 'M']))
+    parent = Node('A', [a1, a2, a3])
+    return parent
 
 def tree_for_adv_search():
     a1 = Node(infinity, create_leafs([3, 12, 8]))
