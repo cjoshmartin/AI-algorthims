@@ -2,7 +2,7 @@ infinity = float('inf')
 
 
 class Node:
-    def __init__(self, value, children=[]):
+    def __init__(self, value, children = None):
         self.value = value
         self.children = children
 
@@ -22,7 +22,10 @@ class Node:
         return curr_total
 
     def add_child(self, child):
-        self.children.append(child)
+        if self.children is None:
+            self.children = [child]
+        else:
+            self.children.append(child)
 
     def add_child_by_value(self, value):
         self.children.append(Node(value))
@@ -32,7 +35,7 @@ class Node:
             self.add_child(child)
 
     def is_leaf(self):
-        return not self.children
+        return self.children is None
 
 
 def create_leafs(input_list):
