@@ -1,8 +1,9 @@
-from utils.Node import mapGraphWithCost
+from utils.Graph import mapGraphWithCost
+from utils.general import get_city_name, calculate_cost
 from utils.priority_queue import priority_queue
 
 
-def print_success(startNode, goal, dict):
+def success(startNode, goal, dict):
     dictKey = goal
     output = goal
 
@@ -11,14 +12,6 @@ def print_success(startNode, goal, dict):
         output = '{} -> {}'.format(dictKey, output)
 
     return output
-
-
-def __get_city_name(node):
-    return node.value
-
-
-def calculate_cost(acc, item):
-    return acc + item
 
 
 def uniform_cost_search(start, goal):
@@ -34,15 +27,15 @@ def uniform_cost_search(start, goal):
         current_object = frontier.dequeue()
         current = current_object['node']
         path_cost = calculate_cost(path_cost, current_object['distance'])
-        city = __get_city_name(current)
+        city = get_city_name(current)
 
         if city == goal:
-            return print_success(start, goal, path)
+            return success(start, goal, path)
 
         explored.add(city)
         if not current.is_leaf():
             for child in current.children:
-                child_city = __get_city_name(child['node'])
+                child_city = get_city_name(child['node'])
                 if child not in frontier.queue and child_city not in explored:
                     cost = calculate_cost(path_cost, child['distance'])
                     if cost < child['cost']:

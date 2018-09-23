@@ -1,6 +1,7 @@
 from queue import Queue
 
-from utils.Node import letterTree, letterGraph
+from utils.Graph import letterGraph
+from utils.Tree import letterTree
 
 
 def breath_first_search(goal, node):

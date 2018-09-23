@@ -1,7 +1,9 @@
 import sys
 
-from utils.Node import infinity, letterTree
 from depth_limited_search import depth_limited_search
+
+from utils.Tree import letterTree
+
 
 def iterative_deepening_search(tree, goal):
 

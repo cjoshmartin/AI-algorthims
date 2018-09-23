@@ -1,4 +1,4 @@
-from utils.Node import letterTree
+from utils.Tree import letterTree
 
 
 def depth_limited_search_r(problem, goal, limit):

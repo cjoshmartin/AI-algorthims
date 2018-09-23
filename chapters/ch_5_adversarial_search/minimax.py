@@ -1,4 +1,5 @@
-from utils.Node import infinity, tree_for_adv_search
+from utils.Node import infinity
+from utils.Tree import tree_for_adv_search
 
 
 def mini_max(tree):
