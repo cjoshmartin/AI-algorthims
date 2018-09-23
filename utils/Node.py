@@ -79,7 +79,7 @@ def letterGraph():
 
 def mapGraphWithCost():
     def create_node_with_cost(node, cost):
-        return {'node': node, 'cost': cost}
+        return tuple((cost, node))
 
     arad = Node('Arad')
     sibiu = Node('Sibiu')
