@@ -13,6 +13,14 @@ def print_success(startNode, goal, dict):
     return output
 
 
+def __get_city_name(node):
+    return node.value
+
+
+def calculate_cost(acc, item):
+    return acc + item
+
+
 def uniform_cost_search(start, goal):
     path_cost = 0
     frontier = priority_queue()
@@ -23,10 +31,10 @@ def uniform_cost_search(start, goal):
 
     while frontier.size() > 0:
 
-        current_tuple = frontier.dequeue()
-        current = current_tuple['node']
-        path_cost = path_cost + current_tuple['distance']
-        city = current.value
+        current_object = frontier.dequeue()
+        current = current_object['node']
+        path_cost = calculate_cost(path_cost, current_object['distance'])
+        city = __get_city_name(current)
 
         if city == goal:
             return print_success(start, goal, path)
@@ -34,9 +42,9 @@ def uniform_cost_search(start, goal):
         explored.add(city)
         if not current.is_leaf():
             for child in current.children:
-                child_city = child['node'].value
+                child_city = __get_city_name(child['node'])
                 if child not in frontier.queue and child_city not in explored:
-                    cost = child['distance'] + path_cost
+                    cost = calculate_cost(path_cost, child['distance'])
                     if cost < child['cost']:
                         child['cost'] = cost
                         path[child_city] = city
