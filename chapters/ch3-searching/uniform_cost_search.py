@@ -26,7 +26,7 @@ def uniform_cost_search(start, goal):
 
         current_object = frontier.dequeue()
         current = current_object['node']
-        path_cost = calculate_cost(path_cost, current_object['distance'])
+        path_cost = calculate_cost([path_cost, current_object['distance']])
         city = get_city_name(current)
 
         if city == goal:
@@ -37,7 +37,7 @@ def uniform_cost_search(start, goal):
             for child in current.children:
                 child_city = get_city_name(child['node'])
                 if child not in frontier.queue and child_city not in explored:
-                    cost = calculate_cost(path_cost, child['distance'])
+                    cost = calculate_cost([path_cost, child['distance']])
                     if cost < child['cost']:
                         child['cost'] = cost
                         path[child_city] = city

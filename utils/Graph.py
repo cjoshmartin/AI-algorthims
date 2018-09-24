@@ -23,7 +23,7 @@ def letterGraph():
 
 def mapGraphWithCost():
     def create_node_with_cost(node, distance):
-        return {'node': node, 'distance': distance, 'cost': infinity, 'via': None}
+        return {'node': node, 'distance': distance, 'cost': infinity}
 
     arad = Node('Arad')
     sibiu = Node('Sibiu')
@@ -82,7 +82,7 @@ def mapGraphWithCost():
     bucharest.add_children([
         create_node_with_cost(fagaras,211),
         create_node_with_cost(pitesti,101),
-        create_node_with_cost(Node('Giurgiu'), 90), # Leaf Node
+        create_node_with_cost(Node('Giurgiu', bucharest), 90), # Leaf Node
         create_node_with_cost(urzieni,85)
     ])
     pitesti.add_children([
@@ -109,7 +109,7 @@ def mapGraphWithCost():
         create_node_with_cost(craiova,120)
     ])
     hirsova.add_children([
-        create_node_with_cost(Node('Eforie'), 86),
+        create_node_with_cost(Node('Eforie',[hirsova]), 86),
         create_node_with_cost(urzieni, 98)
     ])
     vaslui.add_children([
@@ -118,7 +118,7 @@ def mapGraphWithCost():
     ])
     iasi.add_children([
         create_node_with_cost(vaslui,92),
-        create_node_with_cost(Node('Neamt'), 87)
+        create_node_with_cost(Node('Neamt',[iasi]), 87)
     ])
 
     return arad
