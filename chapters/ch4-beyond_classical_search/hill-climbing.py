@@ -26,7 +26,6 @@ def is_attacking(r1, c1, r2, c2):
 
 
 def h(board):
-
     size = len(board)
     attacking = 0
 
@@ -43,9 +42,29 @@ def h(board):
 def main():
     size = 8
     board = n_sized_board(size)
-    while h(board) > 0:
-        board = n_sized_board(size)
+    sort_over = 'h_cost'
 
-    print(board)
+    def format(cost, value):
+        return {sort_over: cost, 'value': value}
+
+    def sorter(item):
+        return item[sort_over]
+
+    cur_h = h(board)
+
+    while cur_h > 0:
+        for i in range(size):
+            lowest_h = []
+            board_copy = list(board)
+            for j in range(size):
+                board_copy[i] = j
+                lowest_h.append(format(h(board_copy), j))
+
+            lowest_h.sort(key=sorter)
+            board[i] = lowest_h[0]['value']
+        cur_h = h(board)
+
+    print('board: {}, cost: {}'.format(board, h(board)))
+
 
 main()
