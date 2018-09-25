@@ -23,3 +23,17 @@ def is_attacking(r1, c1, r2, c2):
 
     if abs(diagonal) == 1:
         return True
+
+
+def h(board):
+    size = len(board)
+    attacking = 0
+
+    for i in range(size):
+        for j in range(size):
+            if is_attacking(board[j], j, board[i], i):
+                attacking = attacking + 1
+    attacking = attacking - size  # remove self attacks
+    attacking = attacking / 2  # counting for overlinks
+
+    return attacking

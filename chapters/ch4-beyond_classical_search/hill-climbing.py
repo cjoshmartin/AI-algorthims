@@ -1,18 +1,4 @@
-from utils.queens import n_sized_board, is_attacking
-
-
-def h(board):
-    size = len(board)
-    attacking = 0
-
-    for i in range(size):
-        for j in range(size):
-            if is_attacking(board[j], j, board[i], i):
-                attacking = attacking + 1
-    attacking = attacking - size  # remove self attacks
-    attacking = attacking / 2  # counting for overlinks
-
-    return attacking
+from utils.queens import n_sized_board, h
 
 
 def main():
