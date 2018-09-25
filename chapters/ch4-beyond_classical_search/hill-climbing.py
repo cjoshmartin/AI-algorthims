@@ -16,8 +16,9 @@ def h(board):
 
 
 def main():
-    size = 4
+    size = 8
     board = n_sized_board(size)
+    input_board = list(board)
     sort_over = 'h_cost'
 
     def format(cost, value):
@@ -26,20 +27,38 @@ def main():
     def sorter(item):
         return item[sort_over]
 
-    cur_h = h(board)
-
-    while cur_h > 0:
+    should_not_quit = True
+    counter = 0
+    while should_not_quit :
+        board_copy = list(board)
         for i in range(size):
             lowest_h = []
-            board_copy = list(board)
+
             for j in range(size):
                 board_copy[i] = j
                 lowest_h.append(format(h(board_copy), j))
 
             lowest_h.sort(key=sorter)
-            board[i] = lowest_h[0]['value']
-        cur_h = h(board)
+            board_copy[i] = lowest_h[0]['value']
 
+        curr_h = h(board)
+        new_h = h(board_copy)
+
+        if counter > 50 or curr_h < new_h:
+            print('Local minimum')
+            should_not_quit = False
+        elif curr_h < 1:
+            should_not_quit = False
+        elif new_h < 1:
+            board = board_copy
+            should_not_quit = False
+        else:
+            board = board_copy
+
+        if curr_h == new_h:
+            counter = counter + 1
+
+    print('board: {}, cost: {}'.format(input_board, h(input_board)))
     print('board: {}, cost: {}'.format(board, h(board)))
 
 
