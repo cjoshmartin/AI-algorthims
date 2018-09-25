@@ -61,5 +61,5 @@ def main():
     print('board: {}, cost: {}'.format(input_board, h(input_board)))
     print('board: {}, cost: {}'.format(board, h(board)))
 
-
-main()
+while True:
+    main()
