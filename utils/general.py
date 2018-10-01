@@ -1,3 +1,6 @@
+from math import exp
+
+
 def get_city_name(node):
     return node.value
 
@@ -37,3 +40,12 @@ def start_line_distances():
     append_city('Neamt', 234)
 
     return map_dict
+
+
+def signmoid(delta_E, t):
+    if t == 0:
+        return 1
+
+    e_to_x = 1 + exp(-delta_E / t)
+
+    return 1/e_to_x

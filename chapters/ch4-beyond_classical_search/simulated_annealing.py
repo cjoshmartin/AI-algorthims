@@ -1,20 +1,16 @@
+# Does not really work
+
 import sys
 
 import random
-from math import exp
 
+from utils.general import signmoid
 from utils.queens import h, n_sized_board
 
 
 def guess():
     return random.random()
-def signmoid(delta_E, t):
-    if t == 0:
-        return 1
 
-    e_to_x = 1 + exp(-delta_E / t)
-
-    return 1/e_to_x
 
 def check_eutropy(c, n, t):
     delta_E = h(n) - h(c) # if delta_E, N is a good solution
