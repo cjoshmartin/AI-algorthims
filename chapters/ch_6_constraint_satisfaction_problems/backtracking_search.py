@@ -1,39 +1,54 @@
-def recursive_backtracking(goal, node, eval):
-    has_visted = set()
+from chapters.ch_6_constraint_satisfaction_problems.general import austria_graph
 
-    if goal == node.value:
+
+def recursive_backtracking(node, eval, has_visted):
+
+    if len(has_visted) == 6:
         return True
 
-    colors  = eval(node)
+    colors = eval(node)
 
-    has_visted.add(node.value)
+    if colors is None:
+        return
+    else:
+        node['color'] = next(iter(colors)) # cannot set color like this, will fix later
 
-    for child in node.children:
+    has_visted.add(node['node'].value)
 
-        print(child.value)
+    for child in node['node'].children:
+        if child['node'].value not in has_visted:
+            return recursive_backtracking(child, eval, has_visted)
 
-
+    has_visted.remove(node['node'].value)
     return False
 
-def backtracking_search(goal, csp, eval):
-    return recursive_backtracking(goal, csp)
+
+def backtracking_search(csp, eval, has_visted):
+    return recursive_backtracking(csp, eval, has_visted)
 
 
 def unused_colors(node):
-    is_not_used_color = {
-        'red': True,
-        'blue': True,
-        'green': True
-    }
+    is_unused = {'red', 'blue', 'green'}
 
-    for child in node.children:
+    if node['color'] is not None:
+        is_unused.remove(node['color'])
+
+    for child in node['node'].children:
 
         child_color = child['color']
 
-        if child_color not None:
-            is_not_used_color[child_color] = False
+        if child_color is None:
+            continue
 
-    if all(color == False for color in is_not_used_color.values()):
+        if is_unused is None or child_color not in is_unused:
+            return False
+
+        is_unused.remove(child_color)
+
+    if is_unused is None:
         return False
 
-    return is_not_used_color
+    return is_unused
+
+
+backtracking_search({'node': austria_graph(), 'color': None }, unused_colors, set())

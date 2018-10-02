@@ -8,3 +8,5 @@ utils/__pycache__/
 chapters/ch3-searching/__pycache__/
 
 *.rslsc
+
+chapters/ch_6_constraint_satisfaction_problems/__pycache__/
