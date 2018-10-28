@@ -2,46 +2,49 @@ from utils.Node import Node
 
 
 def austria_graph():
-    def create_child(node, color = None):
-        return {'node': node, 'color': color}
+    def create_child(node):
+        return {'node': node, 'color': None}
 
-    wa = Node("WA")
-    nt = Node("NT")
-    sa = Node("SA")
-    q = Node('Q')
-    nsw = Node('NSW')
-    v = Node('V')
+    wa = create_child(Node("WA"))
+    nt = create_child(Node("NT"))
+    sa = create_child(Node("SA"))
+    q = create_child(Node('Q'))
+    nsw = create_child(Node('NSW'))
+    v = create_child(Node('V'))
 
-    # t is not modeled because it can be any color
-
-    wa.add_children([
-        create_child(nt),
-        create_child(sa)
+    wa['node'].add_children([
+        nt,
+        sa
     ])
 
-    sa.add_children([
-        create_child(wa),
-        create_child(nt),
-        create_child(q),
-        create_child(nsw),
-        create_child(v)
+    sa['node'].add_children([
+        wa,
+        nt,
+        q,
+        nsw,
+        v
     ])
 
-    nt.add_children([
-        create_child(wa),
-        create_child(sa),
-        create_child(q)
+    nt['node'].add_children([
+        wa,
+        sa,
+        q
     ])
 
-    q.add_children([
-        create_child(nt),
-        create_child(sa),
-        create_child(nsw)
+    q['node'].add_children([
+        nt,
+        sa,
+        nsw
     ])
-    nsw.add_children([
-        create_child(q),
-        create_child(sa),
-        create_child(v)
+    nsw['node'].add_children([
+        q,
+        sa,
+        v
+    ])
+
+    v['node'].add_children([
+        nsw,
+        sa
     ])
 
     return wa

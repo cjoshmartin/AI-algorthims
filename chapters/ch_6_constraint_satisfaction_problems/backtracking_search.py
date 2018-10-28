@@ -1,33 +1,37 @@
 from chapters.ch_6_constraint_satisfaction_problems.general import austria_graph
 
 
-def recursive_backtracking(node, eval, has_visted):
+def recursive_backtracking(node, eval_, has_visited, output_set):  # Generic algorithm
+    curr_node = node['node']
+    node_children = curr_node.children
+    node_name = curr_node.value
 
-    if len(has_visted) == 6:
-        return True
+    value = eval_(node)  # passed in function that makes the decision for our backtracking algorithm
 
-    colors = eval(node)
-
-    if colors is None:
+    if value is False:
         return
-    else:
-        node['color'] = next(iter(colors)) # cannot set color like this, will fix later
 
-    has_visted.add(node['node'].value)
+    has_visited.add(node_name)
+    output_set.append(tuple((node_name, value)))
 
-    for child in node['node'].children:
-        if child['node'].value not in has_visted:
-            return recursive_backtracking(child, eval, has_visted)
+    if len(has_visited) == 6:
+        return output_set
 
-    has_visted.remove(node['node'].value)
+    for child in node_children:
+        if child['node'].value not in has_visited:
+            return recursive_backtracking(child, eval_, has_visited, output_set)
+
+    has_visited.remove(node_name)
     return False
 
 
-def backtracking_search(csp, eval, has_visted):
-    return recursive_backtracking(csp, eval, has_visted)
+def backtracking_search(csp, eval_):
+    has_visited = set()
+    output_set = []
+    return recursive_backtracking(csp, eval_, has_visited, output_set)
 
 
-def unused_colors(node):
+def unused_colors(node):  # evaluate function
     is_unused = {'red', 'blue', 'green'}
 
     if node['color'] is not None:
@@ -48,7 +52,15 @@ def unused_colors(node):
     if is_unused is None:
         return False
 
-    return is_unused
+    node['color'] = next(iter(is_unused))
+
+    return node['color']
 
 
-backtracking_search({'node': austria_graph(), 'color': None }, unused_colors, set())
+head_node = austria_graph()  # map
+output = backtracking_search(
+    head_node,
+    unused_colors,
+)
+
+print(output)
